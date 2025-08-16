@@ -2,6 +2,9 @@
 
 LeaderBoard is a Java-based application designed to manage and calculate student grades. It provides functionality to input student scores, calculate averages, and determine letter grades based on predefined thresholds. This project is ideal for educational institutions or instructors looking to automate grade calculations.
 
+## UML Digram
+![Diagram Title](http://www.plantuml.com/plantuml/proxy?src=https://raw.githubusercontent.com/Hilal-Anwar/LeaderBoard/refs/heads/master/UML_Diagram.puml)
+
 ## Table of Contents
 - [Features](#features)
 - [Project Structure](#project-structure)
