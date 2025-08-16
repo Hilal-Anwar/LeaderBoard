@@ -1,0 +1,328 @@
+@startuml GradedProjectUMLDiagram
+!theme bluegray
+title Graded Project - UML Class Diagram
+
+package "org.graded" {
+    
+    class Main extends Application {
+        +{static} main(String[] args): void
+        +{static} preview: ArrayList<String>
+        +{static} defaultAnimationDuration: LinkedHashMap<String, AnimationDuration>
+        +start(Stage stage): void
+        +listOfWinners(String path): TreeMap<Integer, WinnerInfo>
+        +brandList(String path): ArrayList<String>
+        +{static} generateDefaultAnimationDuration(): void
+    }
+    
+    record WinnerInfo {
+        +name: String
+        +garde: String
+        +img_path: String
+    }
+    
+    class Student {
+        -id: String
+        -name: String
+        -grade: String
+        -points: double
+        +Student(String id, String name, String grade, double points)
+        +getName(): String
+        +setName(String name): void
+        +getGrade(): String
+        +setGrade(String grade): void
+        +getPoints(): double
+        +setPoints(double points): void
+        +id(): String
+        +name(): String
+        +grade(): String
+        +points(): double
+        +toString(): String
+        +equals(Object obj): boolean
+        +hashCode(): int
+    }
+    
+    class StudentDataLoader {
+        -studentLinkedHashMap: LinkedHashMap<String, Student>
+        +databaseLoader: DatabaseLoader
+        +StudentDataLoader()
+        +getStudentLinkedHashMap(): LinkedHashMap<String, Student>
+        +getSortedStudentList(): List<Student>
+        +getStudentList(): List<Student>
+        -init(): void
+    }
+    
+    class DatabaseLoader {
+        -root_path: String
+        -connection: Connection
+        -name: String
+        +DatabaseLoader(String root_path, String name)
+        -init(): void
+        -{static} create(String root_path): boolean
+        +getConnection(): Connection
+        +getStatement(): Statement
+    }
+    
+    class Leaderboard1 implements Initializable {
+        +title: Text
+        +root_layout: VBox
+        +customListView: ListView<CustomView>
+        -studentDataLoader: StudentDataLoader
+        +customViews: ArrayList<CustomView>
+        +Leaderboard1(StudentDataLoader studentDataLoader)
+        +initialize(URL url, ResourceBundle resourceBundle): void
+        -firstThree(List<Student> vr): void
+    }
+    
+    class LeaderBoard2 implements Initializable {
+        +title: Text
+        +root_layout: VBox
+        +customListView: ListView<CustomView>
+        +customViews: ArrayList<CustomView>
+        -studentDataLoader: StudentDataLoader
+        +LeaderBoard2(StudentDataLoader studentDataLoader)
+        +initialize(URL url, ResourceBundle resourceBundle): void
+    }
+    
+    class PointsTable implements Initializable {
+        -points_table: TableView<Map<String, Object>>
+        -ed_column: TableColumn<Map<String, Object>, String>
+        -points_column: TableColumn<Map<String, Object>, String>
+        -name_column: TableColumn<Map<String, Object>, String>
+        -class_column: TableColumn<Map<String, Object>, String>
+        -filterField: TextField
+        -new_ed: TextField
+        -new_name: TextField
+        -new_class: TextField
+        -filterMenu: MenuButton
+        -studentDataLoader: StudentDataLoader
+        -l1: ArrayList<CustomView>
+        -l2: ArrayList<CustomView>
+        -sqlQueries: ArrayList<String>
+        -items: ObservableList<Map<String, Object>>
+        -max_ed: int
+        -stage2: Stage
+        +PointsTable(StudentDataLoader, ArrayList<CustomView>, ArrayList<CustomView>, Stage)
+        +initialize(URL url, ResourceBundle resourceBundle): void
+        -eventResolver(TableColumn.CellEditEvent, String key): void
+        +onApply(): void
+        +onFilterMenu(ActionEvent event): void
+        +{static} getStringObjectMap(Student st): Map<String, Object>
+        +getValues(TableColumn.CellDataFeatures, String key): ObservableValueBase<String>
+        +update(String column_name, String value, String key): void
+        +addNewStudent(): void
+        +updateNewStudent(String, String, String, int): void
+        +onClose(): void
+        +changeDuration(): void
+    }
+    
+    class CustomView extends HBox {
+        -text1: String
+        -text2: String
+        -text3: String
+        -image_src: String
+        -layer1: VBox
+        -layer2: HBox
+        +t1: Text
+        +t2: Text
+        +t3: Text
+        -image_layer: HBox
+        -numPad_Back: HBox
+        -numPad: StackPane
+        -id: int
+        +CustomView(int id, String image_src, String text1, String text2, String text3, String bg_color)
+        +CustomView(int id, String text1, String text2, String text3, String bg_color)
+        +getText1(): Text
+        +getText2(): Text
+        +getText3(): Text
+        -init(String code): void
+        -getImageView(): ImageView
+    }
+    
+    class LayoutAnimator {
+        -nodes: Pane[]
+        -imgIndex: int
+        -pane: Pane
+        +LayoutAnimator(Pane pane, Pane... nodes)
+        +animate(): void
+        -getTimeline(): Timeline
+        -getDefaultTimeline(EventHandler<ActionEvent> eventHandler): Timeline
+    }
+    
+    class ImageSliderShow {
+        -sliderPane: StackPane
+        +ImageSliderShow(String name, String grade, String src_path)
+        +ImageSliderShow(String src_path)
+        +getSliderPane(): StackPane
+    }
+    
+    class Winners implements Initializable {
+        -winner_class: Text
+        -winner_name: Text
+        -winner_img: ImageView
+        -name: String
+        -grade: String
+        -src_path: String
+        +Winners(String name, String grade, String src_path)
+        +getWinner_class(): Text
+        +setWinner_class(Text winner_class): void
+        +getWinner_name(): Text
+        +setWinner_name(Text winner_name): void
+        +getWinner_img(): ImageView
+        +setWinner_img(ImageView winner_img): void
+        +getName(): String
+        +setName(String name): void
+        +getGrade(): String
+        +setGrade(String grade): void
+        +getSrc_path(): String
+        +setSrc_path(String src_path): void
+        +initialize(URL url, ResourceBundle resourceBundle): void
+    }
+    
+    class AddsAndBranding implements Initializable {
+        +branding: ImageView
+        -srcPath: String
+        +AddsAndBranding(String srcPath)
+        +initialize(URL url, ResourceBundle resourceBundle): void
+    }
+    
+    class Timer implements Initializable {
+        -listView: ListView<HBox>
+        -list: ArrayList<HBox>
+        -stage: Stage
+        +Timer(Stage stage)
+        +onApply(): void
+        +onClose(): void
+        +initialize(URL url, ResourceBundle resourceBundle): void
+        -about(): void
+    }
+    
+    class LayoutAnimatorTimer implements Initializable {
+        -layout_duration: Spinner<Double>
+        -fade_duration: Spinner<Double>
+        -node_name: Text
+        -name: String
+        -l_duration: double
+        -f_duration: double
+        +LayoutAnimatorTimer(String name, double l_duration, double f_duration)
+        +initialize(URL url, ResourceBundle resourceBundle): void
+    }
+    
+    class AnimationDuration {
+        +fadeTime: double
+        +layoutDuration: double
+        +AnimationDuration(double layoutDuration, double fadeTime)
+        +getFadeTime(): double
+        +setFadeTime(double fadeTime): void
+        +getLayoutDuration(): double
+        +setLayoutDuration(double layoutDuration): void
+        +toString(): String
+    }
+    
+    class DurationReaderData {
+        -{static} DB_URL: String
+        -{static} getConnection(): Connection
+        +{static} init(): void
+        +{static} updateDurationInDatabase(): void
+        +{static} durationReader(): void
+        -{static} tableExists(Connection conn): boolean
+    }
+    
+    class LeaderboardResourcesLoader {
+        -LeaderboardResourcesLoader()
+        +{static} loadURL(String path): URL
+        +{static} load(String path): String
+        +{static} loadStream(String name): InputStream
+    }
+    
+    class Name {
+        +{static} make_word_name(String word): String
+        +{static} countWords(String string): long
+    }
+    
+    class Operators {
+        -k1: String
+        -k2: String
+        -k3: String
+        -k4: String
+        -k5: String
+        -memory: List<String>
+        +Operators(String exp)
+        -substitute(String va): String
+        -resubstitute(String va): String
+        +solve(): double
+        -power(String[] split): String
+        -divide(String[] split): String
+        -multiply(String[] split): String
+        -factorial(String x): String
+        -fac(BigInteger n): String
+        -f(BigInteger n): BigInteger
+    }
+    
+    ' Record relationship
+    Main +-- WinnerInfo
+    
+    ' Composition relationships
+    StudentDataLoader *-- DatabaseLoader
+    StudentDataLoader *-- Student
+    Main *-- StudentDataLoader
+    Main *-- LayoutAnimator
+    Main *-- ImageSliderShow
+    
+    ' Aggregation relationships
+    Leaderboard1 o-- StudentDataLoader
+    Leaderboard1 o-- CustomView
+    LeaderBoard2 o-- StudentDataLoader
+    LeaderBoard2 o-- CustomView
+    PointsTable o-- StudentDataLoader
+    PointsTable o-- CustomView
+    
+    ' Dependency relationships
+    Main ..> Leaderboard1 : creates
+    Main ..> LeaderBoard2 : creates
+    Main ..> PointsTable : creates
+    Main ..> Winners : creates
+    Main ..> AddsAndBranding : creates
+    Main ..> AnimationDuration : uses
+    Main ..> DurationReaderData : uses
+    
+    ImageSliderShow ..> Winners : creates
+    ImageSliderShow ..> AddsAndBranding : creates
+    
+    PointsTable ..> Operators : uses
+    Timer ..> LayoutAnimatorTimer : creates
+    
+    ' Utility class usage
+    Leaderboard1 ..> Name : uses
+    LeaderBoard2 ..> Name : uses
+    CustomView ..> LeaderboardResourcesLoader : uses
+    Winners ..> LeaderboardResourcesLoader : uses (indirectly)
+    AddsAndBranding ..> LeaderboardResourcesLoader : uses (indirectly)
+    Timer ..> LeaderboardResourcesLoader : uses
+    LayoutAnimatorTimer ..> LeaderboardResourcesLoader : uses (indirectly)
+    
+    ' Static relationships
+    DurationReaderData ..> Main : accesses static fields
+    LayoutAnimator ..> Main : accesses static fields
+    LayoutAnimatorTimer ..> Main : accesses static fields
+    Timer ..> Main : accesses static fields
+    
+}
+
+' External dependencies
+interface Initializable <<JavaFX>>
+class Application <<JavaFX>>
+class HBox <<JavaFX>>
+
+' Implementation relationships
+Leaderboard1 ..|> Initializable
+LeaderBoard2 ..|> Initializable
+PointsTable ..|> Initializable
+Winners ..|> Initializable
+AddsAndBranding ..|> Initializable
+Timer ..|> Initializable
+LayoutAnimatorTimer ..|> Initializable
+
+Main --|> Application
+CustomView --|> HBox
+
+@enduml

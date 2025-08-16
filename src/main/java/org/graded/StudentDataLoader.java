@@ -16,6 +16,7 @@ public class StudentDataLoader {
     public List<Student> getSortedStudentList() {
         List<Student> list = new ArrayList<>(studentLinkedHashMap.values());
         list.sort(Comparator.comparing(Student::points, Comparator.reverseOrder()));
+        System.out.println(list);
         return list;
     }
 
@@ -37,6 +38,7 @@ public class StudentDataLoader {
                         Double.parseDouble(x.getString("Points")));
                 studentLinkedHashMap.put(x.getString("ED No."), stu);
             }
+            System.out.println(studentLinkedHashMap);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

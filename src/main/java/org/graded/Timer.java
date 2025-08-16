@@ -47,9 +47,8 @@ public class Timer implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for (int i = 0; i < preview.size(); i++) {
-            var t = preview.get(i);
-          /*  double value = (i == 0) ? defaultAnimationDuration.get(t).getLayoutDuration() :
+        for (String t : preview) {
+            /*  double value = (i == 0) ? defaultAnimationDuration.get(t).getLayoutDuration() :
                     (defaultAnimationDuration.get(preview.get(i)).getLayoutDuration() - defaultAnimationDuration.get(preview.get(i - 1)).getLayoutDuration());*/
             var layout = new FXMLLoader(LeaderboardResourcesLoader.loadURL("fxml/layout_animator_timer.fxml"));
 

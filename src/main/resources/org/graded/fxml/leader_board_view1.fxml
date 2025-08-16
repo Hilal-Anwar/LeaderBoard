@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Text?>
 
 <StackPane id="layer" stylesheets="@../css/_main.css" xmlns="http://javafx.com/javafx/24" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.graded.Leaderboard1">
-    <VBox id="customListView_hold" fx:id="root_layout" alignment="CENTER" maxHeight="955.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0">
+    <VBox id="customListView_hold" fx:id="root_layout" alignment="CENTER" maxHeight="1800.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="5.0">
         <HBox alignment="BOTTOM_CENTER">
             <VBox.margin>
                 <Insets top="20.0" />
@@ -31,7 +31,7 @@
             <Image url="@../icons/my-logo.png" />
         </ImageView>
       <StackPane.margin>
-         <Insets bottom="100.0" left="40.0" right="40.0" top="100.0" />
+         <Insets bottom="70.0" left="40.0" right="40.0" top="70.0" />
       </StackPane.margin>
     </VBox>
 </StackPane>
